@@ -186,6 +186,9 @@ def main():
             "summary_all",
             "summary")
 
+            #Put after collect_summary_udf if we want to filter the articles which doesn't contribute to overall summary
+            #.where(
+            #F.size(F.col("section_summary")) > 0) \
         df.write.json(
             path=os.path.join(task_output_dir, prefix),
             mode="overwrite")
