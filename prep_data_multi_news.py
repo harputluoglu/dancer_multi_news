@@ -69,13 +69,25 @@ if __name__ == "__main__":
 
             json_data = {}
             news, sections = clean(news)
-            json_data["article_number"]=index
-            json_data["section_names"] = list(range(len(sections)))
-            json_data["sections"] = sections
+            json_data["article_number"]= index
+            json_data["section_names"] = list(str(i) for i in range(len(sections)))
+            
+            k= []
+            for section in sections:
+                k.append(section.split(". "))
+                if k[-1]== "":
+                    k= k[:-1]
+            json_data["sections"] = k
             #json_data["document"] = news
 
             summary = summary.strip().lstrip("- ")
+            
+            summary = summary.split(". ")
+            if summary[-1]== "":
+                summary= summary[:-1]
             json_data["summary"] = summary
+
+
             #json_data["abstract_text"] = summary in 
 
             json_object = json.dumps(json_data, ensure_ascii=False)
