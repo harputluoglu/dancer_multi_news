@@ -23,12 +23,11 @@ def rouge_targets(abstract_sentences, section_sentences, rg_scorer):
     #print(len(section_sentences))
     sum_targets = [0] * len(abstract_sentences)
 
-
+    print(abstract_sentences)
+    print(section_sentences)
     for j, abs_sent in enumerate(abstract_sentences):
         max_rouge = 0.
         for si, sec_sent in enumerate(section_sentences):
-            print(len(abs_sent))
-            print(len(sec_sent))
             rouge_score = rg_scorer.score(abs_sent, sec_sent)
             rouge_r = rouge_score['rougeL'][1]
             if rouge_r > max_rouge:
@@ -47,7 +46,7 @@ def rouge_match(scorer):
         computes the ROUGE-L score of each summary sentence with the section text.
         See the definition of 'rouge_targets' for more details.
         """
-        full_section, summary_sents = cols.text_section, cols.summary
+        full_section, summary_sents = cols.text_section.sections, cols.summary
         sum_scores = rouge_targets(summary_sents, full_section, scorer)
         
         return sum_scores
@@ -163,8 +162,6 @@ def main():
             .withColumn(
             "section_summary",
             collect_summary_udf(F.struct(F.col("section_idx"), F.col("matched_summaries")))) \
-            .where(
-            F.size(F.col("section_summary")) > 0) \
             .withColumn(
             "document",
             F.concat_ws(" ", F.col("full_text_section").section_text)) \
