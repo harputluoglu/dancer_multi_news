@@ -45,6 +45,7 @@ def clean(line):
     line = line.replace("autoplay autoplay copy this code to your website or blog", "")
     line = line.replace("NEWLINE_CHAR", " ")
     line = line.replace("\n", "\n-----")
+    line = line.replace('\"', '')
     lines = line.split("|||||")
     lines = lines[:-1]
     
@@ -77,7 +78,7 @@ if __name__ == "__main__":
             json_data["summary"] = summary
             #json_data["abstract_text"] = summary in 
 
-            json_object = json.dumps(json_data)
+            json_object = json.dumps(json_data, ensure_ascii=False)
             json_file.write(json_object + '\n')
 
 
