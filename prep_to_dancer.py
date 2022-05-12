@@ -92,7 +92,7 @@ def read_args():
 def main():
     args, unknown = read_args()
 
-    train_data = os.path.join(args.data_root, 'multi_news_train_preprocessed.json')
+    train_data = os.path.join(args.data_root, 'example_multi_news_formatted.json')
     #val_data = os.path.join(args.data_root, 'val.txt')
     #test_data = os.path.join(args.data_root, 'test.txt')
     #selected_section_types = ["i", "m", "r", "l", "c"]
@@ -166,25 +166,25 @@ def main():
             "document",
             F.concat_ws(" ", F.col("full_text_section").section_text)) \
             .withColumn(
-            "summary_all",
+            "summary_individual",
             F.concat_ws(" ", F.col("section_summary"))) \
             .withColumn(
-            "summary",
+            "summary_all",
             F.concat_ws(" ", F.col("summary"))) \
             .withColumn(
             "document_len",
             F.size(F.split(F.col("document"), " "))) \
             .withColumn(
             "summary_len",
-            F.size(F.split(F.col("summary"), " "))) \
+            F.size(F.split(F.col("summary_all"), " "))) \
             .where(
             F.col('document_len') > 50) \
             .select(
             "article_number",
             "section_idx",
             "document",
-            "summary_all",
-            "summary")
+            "summary_individual",
+            "summary_all")
 
             #Put after collect_summary_udf if we want to filter the articles which doesn't contribute to overall summary
             #.where(
