@@ -1,0 +1,1 @@
+– Apple is warning that a security flaw in its web browser could allow hackers to access your computer, the Wall Street Journal reports The flaw affects versions 6 through 11 of Google's popular web browser, and the company says it is aware of "limited, targeted attacks" that attempt to exploit it
