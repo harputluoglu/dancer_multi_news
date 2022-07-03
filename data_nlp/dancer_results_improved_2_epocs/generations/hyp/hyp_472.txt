@@ -1,0 +1,1 @@
+"The vulnerability may corrupt memory in a way that could allow an attacker to execute arbitrary code in the context of the current user within Internet Explorer," the company says in a blog post
